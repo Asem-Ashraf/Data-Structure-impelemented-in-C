@@ -16,7 +16,7 @@ typedef struct node{
     node* next;
 }node;
 
-typedef struct LinkedList{
+typedef struct DoublyLinkedList{
     node head;
     node tail;
 }linkedlist;
