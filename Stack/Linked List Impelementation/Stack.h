@@ -4,22 +4,13 @@
 #define THIS_FILE_LLIMP
 #define StackEntry int /* PUT STACK DATA TYPE HERE */
 #define MAXSTACK 1000 /* PUT MAX STACK SIZE HERE*/
-
+#include "../../Doubly Linked List/Doubly_Linked_List.h"
 typedef struct stack{
     int top; // the index that an entry is going to be inserted at on pushing
-    linkedlist entrys;
+    doublylinkedlist entrys;
 }stack;
 
-typedef struct node{
-    StackEntry value;
-    node* prev;
-    node* next;
-}node;
 
-typedef struct DoublyLinkedList{
-    node head;
-    node tail;
-}linkedlist;
 
 
 /* Precondition: The stack is intialized and not full
