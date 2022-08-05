@@ -6,18 +6,17 @@ doublylinkedlist createDoublyLinkedList(){
     doublylinkedlist dll;
     dll.head = NULL;
     dll.tail = NULL;
-    dll.size = 0;
+    dll.noElements = 0;
 
 }
-
 void intializeDoublyLinkedList(doublylinkedlist* pl){
     pl->head=pl->tail=NULL;
-    pl->size=0;
+    pl->noElements=0;
 }
 
 
 int  len(doublylinkedlist* pl){
-    return pl->size;
+    return pl->noElements;
 }
 
 
@@ -32,7 +31,7 @@ void insertLast(doublylinkedlist* pl,node* pn){
         pn->prev=pl->tail;
         pl->tail=pn;
     }
-    pl->size++;
+    pl->noElements++;
 }
 
 
@@ -47,27 +46,43 @@ void insertFirst(doublylinkedlist* pl,node* pn){
         pn->next=pl->head;
         pl->head=pn;
     }
-    pl->size++;
+    pl->noElements++;
 }
 
 
 node* deleteFirst(doublylinkedlist* pl){
+    if(pl->head->next==NULL){
+        node* pOldHeadNode=pl->head;
+        pl->head=pl->tail=NULL;
+        pl->noElements=0;
+        return pOldHeadNode;
+    }
+    else{
     pl->head->next->prev=NULL;
     node* pOldHeadNode=pl->head;
     pl->head=pl->head->next;
     pl->head->next=NULL;
-    pl->size--;
+    pl->noElements--;
     return pOldHeadNode;
+    }
 }
 
 
 node* deleteLast(doublylinkedlist* pl){
+    if(pl->tail->prev==NULL){
+        node* pOldTailNode=pl->tail;
+        pl->head=pl->tail=NULL;
+        pl->noElements=0;
+        return pOldTailNode;
+    }
+    else{
     pl->tail->prev->next=NULL;
     node* pOldtailNode=pl->tail;
     pl->tail=pl->tail->prev;
     pl->tail->prev=NULL;
-    pl->size--;
+    pl->noElements--;
     return pOldtailNode;
+    }
 }
 
 
@@ -77,7 +92,7 @@ node* deleteNodeAt(doublylinkedlist* pl,int index){
     pNode->next->prev=pNode->prev;
     pNode->next=NULL;
     pNode->prev=NULL;
-    pl->size--;
+    pl->noElements--;
     return pNode;
 }
 
@@ -88,12 +103,16 @@ void insertAt(doublylinkedlist* pl,node* pn,int index){
     pn->next=pNode;
     pNode->prev->next=pn;
     pNode->prev=pn;
-    pl->size++;
+    pl->noElements++;
 }
 
 
-void iter_seq(doublylinkedlist* pl){
-
+void iterateElements(const doublylinkedlist* pl,void (*pfunc)(datatype)){
+    node* pNode = pl->head;
+        while (pNode!=NULL){
+            pfunc(pNode->value);
+            pNode = pNode->next;
+        }
 }
 
 
@@ -106,7 +125,11 @@ node* getAt(doublylinkedlist* pl, int index){
     return pNode;
 }
 
+void setAt(doublylinkedlist* pl,datatype inputValue, int index){
+    getAt(pl,index)->value=inputValue;
+}
+
 
 int listEmpty(doublylinkedlist* pl){
-    return !pl->size;
+    return !(pl->noElements);
 }

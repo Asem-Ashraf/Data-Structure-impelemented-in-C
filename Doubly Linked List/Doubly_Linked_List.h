@@ -8,7 +8,7 @@ typedef struct node{
 }node;
 
 typedef struct DoublyLinkedList{
-    int size;
+    int noElements;
     node* head;
     node* tail;
 }doublylinkedlist;
@@ -46,37 +46,40 @@ void  insertFirst(doublylinkedlist*,node*);
 
 /* Precondition: The list must not be empty.
  * Postcondition: The first element is deleted.
- *                The size of the list is decremented.
+                  The size of the list is decremented.
  */
 node* deleteFirst(doublylinkedlist*);
 
 
 /* Precondition: The list must not be empty.
  * Postcondition: The last element is deleted.
- *                the size of the list is decremented.
+                  the size of the list is decremented.
  */
 node* deleteLast(doublylinkedlist*);
 
 
 /* Precondition: The input index is less than the size of the list.
- *               The list must not be empty.
+                 The list must not be empty.
  * Postcondition: The element is removed from the list and returned.
- *                The size of the list is decremented.
+                  The size of the list is decremented.
  */
 node* deleteAt(doublylinkedlist*,int);
 
 
 /* Precondition: The input index is less than the size of the list.
  * Postcondition: The node is inserted in the list at the input index.
- *                The size of the list is incremented.
+                  The size of the list is incremented.
  */
 void  insertAt(doublylinkedlist*,node*,int);
 
 
-/* Precondition: 
+/* Precondition: Given a pointer to a doubly linked list and a function 
+                 for the values of the doubly linked list.
+                 The function is ran on each value in the list from the
+                 head to tail in order.
  * Postcondition: 
  */
-void  iter_seq(doublylinkedlist*);
+void  iterateElements(const doublylinkedlist*,void (*pfunc)(datatype));
 
 
 /* Precondition: The input index is less than the size of the list.
@@ -84,6 +87,11 @@ void  iter_seq(doublylinkedlist*);
  */
 node* getAt(doublylinkedlist*,int);
 
+
+/* Precondition: The input index is less than the size of the list.
+ * Postcondition: The input replaces the value at the index.
+ */
+void  setAt(doublylinkedlist*,datatype,int);
 
 /* Precondition: None
  * Postcondition: None

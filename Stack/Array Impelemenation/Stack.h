@@ -12,7 +12,7 @@ typedef struct stack{
 
 /* Precondition: The stack is intialized and not full
  * Postcondition: The element has been stored at the top of the stack;
- * and e does not change
+                  and e does not change
  */
 void push(StackEntry,stack*);
 
@@ -43,7 +43,7 @@ void ClearStack(stack*);
 
 /* Precondition: The stack is intialized and not empty
  * Postcondition: The element stored at the top of the stack is
- * returned without being removed.
+                  returned without being removed.
  */
 void StackTop(StackEntry*,stack*);
 
