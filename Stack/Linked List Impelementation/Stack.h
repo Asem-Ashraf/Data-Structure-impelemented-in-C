@@ -2,11 +2,10 @@
 // file gaurd
 #ifndef THIS_FILE_LLIMP
 #define THIS_FILE_LLIMP
-#define StackEntry int /* PUT STACK DATA TYPE HERE */
 #define MAXSTACK 1000 /* PUT MAX STACK SIZE HERE*/
-#include "../../Doubly Linked List/Doubly_Linked_List.h"
+#include "Doubly_Linked_List.h"
 typedef struct stack{
-    int top; // the index that an entry is going to be inserted at on pushing
+    node* top; // the index that an entry is going to be inserted at on pushing
     doublylinkedlist entrys;
 }stack;
 
