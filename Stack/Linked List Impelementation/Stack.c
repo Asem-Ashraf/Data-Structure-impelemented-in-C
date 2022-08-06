@@ -2,6 +2,7 @@
 
 void push(StackEntry e ,stack* ps){
     node* pNode;
+    allocNode(pNode);
     pNode->value=e;
     insertFirst(&(ps->entrys),pNode);
     ps->top=ps->entrys.head;
@@ -10,6 +11,7 @@ void pop(StackEntry* pe,stack* ps){
     node* pNode = deleteFirst(&ps->entrys);
     *pe=&pNode->value;
     ps->top=ps->entrys.head;
+    freeNode(pNode);
 }
 
 int  StackEmpty(stack* ps){

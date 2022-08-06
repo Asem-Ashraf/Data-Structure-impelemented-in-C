@@ -8,6 +8,26 @@ typedef struct node{
     node* next;
 }node;
 
+
+/* Precondition: None
+ * Postcondition: None
+ */
+/* Description: Allocate a node space from memory,
+                Given the node pointer.
+*/
+void allocNode(node*);
+
+
+/* Precondition: None
+ * Postcondition: None
+ */
+/* Description: Deallocate a node space from memory,
+                completely deleteing it and its content.
+                Given the node pointer.
+*/
+void freeNode(node*);
+
+
 typedef struct DoublyLinkedList{
     int noElements;
     node* head;

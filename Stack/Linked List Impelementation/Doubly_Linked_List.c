@@ -1,5 +1,13 @@
 #include "Doubly_Linked_List.h"
-#define NULL ((void*)0)
+#include <stdlib.h>
+
+void allocNode(node* pn){
+    pn = (node*)malloc(sizeof(node));
+    pn->next=pn->prev=pn->value=NULL;
+}
+void freeNode(node* pn){
+    free(pn);
+}
 
 
 doublylinkedlist createDoublyLinkedList(){
