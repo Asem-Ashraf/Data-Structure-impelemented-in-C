@@ -17,30 +17,49 @@ typedef struct DoublyLinkedList{
 /* Precondition: None
  * Postcondition: None
  */
+/* Description: Intializes the head, tail and number of elements
+                of the list to NULL, NULL and 0.
+                Returns an intialized doubly linked list.
+*/
 doublylinkedlist createDoublyLinkedList();
 
 
 /* Precondition: None
  * Postcondition: None
  */
+/* Description: Given a doubly linked list datatype.
+                Intializes the head, tail and number of elements
+                of the list to NULL, NULL and 0.
+*/
 void intializeDoublyLinkedList(doublylinkedlist*);
 
 
 /* Precondition: The list has been intialized.
  * Postcondition: None
  */
-int   len(doublylinkedlist*);
+/* Description: Given a doubly linked list datatype.
+                Return the number of elements in the list.
+*/
+int   len(const doublylinkedlist*);
 
 
 /* Precondition: None
  * Postcondition: The element inserted at the end of the list.
  */
+/* Description: Given a doubly linked list datatype
+                and a doubly pointing node.
+                Inserts the node at the end of the list.
+*/
 void  insertLast(doublylinkedlist*,node*);
 
 
 /* Precondition: The list must not be empty.
  * Postcondition: The element inserted at the beginning of the list.   
  */
+/* Description: Given a doubly linked list datatype
+                and a doubly pointing node.
+                Inserts the node at the beginning of the list.
+*/
 void  insertFirst(doublylinkedlist*,node*);
 
 
@@ -48,6 +67,10 @@ void  insertFirst(doublylinkedlist*,node*);
  * Postcondition: The first element is deleted.
                   The size of the list is decremented.
  */
+/* Description: Given a doubly linked list datatype.
+                Deletes the node at the beginning of the list.
+                Returns the deleted node.
+*/
 node* deleteFirst(doublylinkedlist*);
 
 
@@ -55,6 +78,10 @@ node* deleteFirst(doublylinkedlist*);
  * Postcondition: The last element is deleted.
                   the size of the list is decremented.
  */
+/* Description: Given a doubly linked list datatype.
+                Deletes the node at the end of the list.
+                Returns the deleted node.
+*/
 node* deleteLast(doublylinkedlist*);
 
 
@@ -63,6 +90,11 @@ node* deleteLast(doublylinkedlist*);
  * Postcondition: The element is removed from the list and returned.
                   The size of the list is decremented.
  */
+/* Description: Given a doubly linked list datatype
+                and a 0-based index in the list.
+                Deletes the node at the index.
+                Returns the deleted node.
+*/
 node* deleteAt(doublylinkedlist*,int);
 
 
@@ -70,6 +102,11 @@ node* deleteAt(doublylinkedlist*,int);
  * Postcondition: The node is inserted in the list at the input index.
                   The size of the list is incremented.
  */
+/* Description: Given a doubly linked list datatype
+                , a doubly pointing node
+                and a 0-based index in the list.
+                Inserts the node at the index.
+*/
 void  insertAt(doublylinkedlist*,node*,int);
 
 
@@ -96,5 +133,9 @@ void  setAt(doublylinkedlist*,datatype,int);
 /* Precondition: None
  * Postcondition: None
  */
+/* Description: Given a doubly linked list datatype.
+                Returns 1 if the list is empty
+                        0 if the list is not empty.
+*/
 int listEmpty(doublylinkedlist*);
 #endif

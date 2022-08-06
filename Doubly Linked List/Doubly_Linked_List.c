@@ -15,7 +15,7 @@ void intializeDoublyLinkedList(doublylinkedlist* pl){
 }
 
 
-int  len(doublylinkedlist* pl){
+int  len(const doublylinkedlist* pl){
     return pl->noElements;
 }
 
@@ -42,6 +42,7 @@ void insertFirst(doublylinkedlist* pl,node* pn){
         pl->head=pl->tail=pn;
     }
     else{
+        pn->prev=NULL;
         pl->head->prev=pn;
         pn->next=pl->head;
         pl->head=pn;
@@ -55,14 +56,15 @@ node* deleteFirst(doublylinkedlist* pl){
         node* pOldHeadNode=pl->head;
         pl->head=pl->tail=NULL;
         pl->noElements=0;
+        pOldHeadNode->prev=pOldHeadNode->next=NULL;
         return pOldHeadNode;
     }
     else{
     pl->head->next->prev=NULL;
     node* pOldHeadNode=pl->head;
     pl->head=pl->head->next;
-    pl->head->next=NULL;
     pl->noElements--;
+    pOldHeadNode->next=NULL;
     return pOldHeadNode;
     }
 }
@@ -73,20 +75,24 @@ node* deleteLast(doublylinkedlist* pl){
         node* pOldTailNode=pl->tail;
         pl->head=pl->tail=NULL;
         pl->noElements=0;
+        pOldTailNode->prev=pOldTailNode->next=NULL;
         return pOldTailNode;
     }
     else{
     pl->tail->prev->next=NULL;
     node* pOldtailNode=pl->tail;
     pl->tail=pl->tail->prev;
-    pl->tail->prev=NULL;
     pl->noElements--;
+    pOldtailNode->prev=NULL;
     return pOldtailNode;
     }
 }
 
 
 node* deleteNodeAt(doublylinkedlist* pl,int index){
+    if(index==len(pl)-1) deleteLast(pl);
+    if(index==0) deleteFirst(pl);
+
     node* pNode=getAt(pl,index); 
     pNode->prev->next=pNode->next;
     pNode->next->prev=pNode->prev;
@@ -98,6 +104,9 @@ node* deleteNodeAt(doublylinkedlist* pl,int index){
 
 
 void insertAt(doublylinkedlist* pl,node* pn,int index){
+    if (index==0) insertFirst(pl,pn);
+    if (index==len(pl)-1) insertLast(pl,pn);
+    
     node* pNode = getAt(pl,index);
     pn->prev=pNode->prev;
     pn->next=pNode;
