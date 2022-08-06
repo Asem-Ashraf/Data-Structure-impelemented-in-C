@@ -18,6 +18,16 @@ doublylinkedlist createDoublyLinkedList(){
 
 }
 void intializeDoublyLinkedList(doublylinkedlist* pl){
+    if (!listEmpty(pl))
+    {
+        node* pNode = pl->head;
+        for (int i = 0; i < len(pl)-1; i++)
+        {
+            pNode = pNode->next;
+            freeNode(pNode->prev);
+        }
+        freeNode(pNode);
+    }
     pl->head=pl->tail=NULL;
     pl->noElements=0;
 }
