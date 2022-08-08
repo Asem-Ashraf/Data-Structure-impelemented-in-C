@@ -31,7 +31,7 @@ void CreateStack(stack* ps){
 void TraverseStack(stack* ps,void (*pf)(StackEntry)){
     for (int i = ps->top-1; i >=0; i--)
     {
-        pf(ps->entry[i]);
+        (*pf)(ps->entry[i]);
     }
     
 }

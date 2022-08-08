@@ -136,7 +136,7 @@ void insertAt(doublylinkedlist* pl,node* pn,int index){
 void iterateElements(const doublylinkedlist* pl,void (*pfunc)(datatype)){
     node* pNode = pl->head;
         while (pNode!=NULL){
-            pfunc(pNode->value);
+            (*pfunc)(pNode->value);
             pNode = pNode->next;
         }
 }
