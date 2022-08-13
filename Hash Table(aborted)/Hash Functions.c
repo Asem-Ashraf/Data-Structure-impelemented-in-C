@@ -5,11 +5,20 @@
 /* Given a NULL terminated string of characters.
    Returns unsigned long long that contains a hash of the string.
 */
-unsigned long long hash(unsigned char *str)
+#include "datatypesSizes.h"
+
+
+UINT64 hash(void *type, size_t size)
 {
-    unsigned long long hash = 5381;
-    int c;
-    while (c = *str++)  hash = ((hash << 5) + hash) + c; /* hash * 33 + c *///33 is a magic number. Explaination not provided.
+    UINT64 hash = 5381;
+    INT32 c;
+    INT8* unit= (INT8*)type;
+    for (int i = 0; i < size; i++)
+    {
+        c = *unit;
+        unit++;
+        hash = ((hash << 5) + hash) + c; /* hash * 33 + c *///33 is a magic number. Explaination not provided.
+    }
     return hash;
 }
 

@@ -1,8 +1,10 @@
 #ifndef THIS_FILE_DLL
 #define THIS_FILE_DLL
-#define datatype item
+
+#include "datatypesSizes.h"
 typedef struct node{
-    datatype value;
+    void* value;
+    size_t size;
     node* prev;
     node* next;
 }node;
@@ -137,7 +139,7 @@ void  insertAt(doublylinkedlist*,node*,int);
                  head to tail in order.
  * Postcondition: 
  */
-void  iterateElements(const doublylinkedlist*,void (*pfunc)(datatype));
+void  iterateElements(const doublylinkedlist*,void (*pfunc)(void*,size_t));
 
 
 /* Precondition: The input index is less than the size of the list.
@@ -149,7 +151,7 @@ node* getAt(doublylinkedlist*,int);
 /* Precondition: The input index is less than the size of the list.
  * Postcondition: The input replaces the value at the index.
  */
-void  setAt(doublylinkedlist*,datatype,int);
+void  setAt(doublylinkedlist*,void*,size_t,int);
 
 /* Precondition: None
  * Postcondition: None

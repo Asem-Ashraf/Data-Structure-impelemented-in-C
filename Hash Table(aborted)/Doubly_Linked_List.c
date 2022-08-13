@@ -133,10 +133,10 @@ void insertAt(doublylinkedlist* pl,node* pn,int index){
 }
 
 
-void iterateElements(const doublylinkedlist* pl,void (*pfunc)(datatype)){
+void iterateElements(const doublylinkedlist* pl,void (*pfunc)(void*,size_t)){
     node* pNode = pl->head;
         while (pNode!=NULL){
-            (*pfunc)(pNode->value);
+            (*pfunc)(pNode->value,pNode->size);
             pNode = pNode->next;
         }
 }
@@ -151,8 +151,10 @@ node* getAt(doublylinkedlist* pl, int index){
     return pNode;
 }
 
-void setAt(doublylinkedlist* pl,datatype inputValue, int index){
-    getAt(pl,index)->value=inputValue;
+void setAt(doublylinkedlist* pl, void* inputValue, size_t inputSize, int index){
+    node* pNode = getAt(pl,index);
+    pNode->value=inputValue;
+    pNode->size=inputSize;
 }
 
 
