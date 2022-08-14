@@ -2,7 +2,6 @@
 // file gaurd
 #ifndef THIS_FILE_LLIMP
 #define THIS_FILE_LLIMP
-#define MAXSTACK 1000 /* PUT MAX STACK SIZE HERE*/
 #include "Doubly_Linked_List.h"
 typedef struct stack{
     node* top; // the index that an entry is going to be inserted at on pushing
@@ -34,7 +33,7 @@ int  StackEmpty(stack*);
 /* Precondition: The stack is intialized.
  * Postcondition: none
  */
-int  StackFull(stack*);
+//int  StackFull(stack*);
 
 
 /* Precondition: none

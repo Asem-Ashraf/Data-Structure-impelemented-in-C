@@ -1,41 +1,37 @@
 #ifndef THIS_HASH_TABLE_FILE
 #define THIS_HASH_TABLE_FILE
 
-#include "datatypesSizes.h"
 #include <stdio.h>
+#include "datatypesSizes.h"
 #include "Doubly_Linked_List.h"
-
+#include "Hash Functions.c"
 typedef struct HashTable{
     slot* slots;
     doublylinkedlist keys;
-
+    UINT32 m;
+    UINT32 size;
 }hashTable;
 typedef struct slot{
-    UINT8 isEmpty;
     doublylinkedlist items;
 }slot;
-typedef struct key{
-    void* key;
-    size_t keySize;
-}key;
+
 typedef struct item
 {
     void* key;
-    void* item;
+    void* value;
     size_t keySize;
-    size_t itemSize;
+    size_t valueSize;
+    char* typeDescription;
+    size_t typeDescriptionSize;
+    node* pKeyListNode;
+    node* pColisionListNode;
 }item;
 
 
-
-
-
-/* Given a size of the hash table elements.
-   Returns an array of slots to insert keyvalue pairs in.
-*/
 void createHashTable(hashTable*, UINT32);
-void insertKeyValuePair(void* ,size_t,void*,size_t);
-void deleteKeyValuePair(void*,size_t);
-void getValueOfKey(void*,size_t);
+void insertKeyValuePair(hashTable*,void*, size_t, void*, size_t,char*, size_t);
+void deleteKeyValuePair(hashTable*,void*, size_t);
+void getValueOfKey(hashTable*,void*, size_t, void*, size_t);
+void traverseKeys(hashTable*, void (*pfunc)(void*,size_t));
 
 #endif
