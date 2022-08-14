@@ -24,11 +24,11 @@ UINT64 hash(void *type, size_t size)
 
 // This is a function that hashes integral types to unsigned long long
 
-unsigned long long hashInts(int key,int m){
-    unsigned long long hash;
-    static unsigned int a,b;
-    unsigned long long p = 9999999997777777333L;
-    hash = (((((unsigned long long)a)*((unsigned long long)key)+((unsigned long long)b))%p)%m);
+UINT32 hashInts(UINT64 key,int m){
+    UINT32 hash;
+    static UINT32 a,b;
+    UINT32 p = 4294967291;
+    hash = (((((UINT64)a)*((UINT64)key)+((UINT64)b))%p)%m);
     return hash;
 }
 // This is a function that hashes floating point to unsigned long long

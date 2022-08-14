@@ -133,10 +133,10 @@ void insertAt(doublylinkedlist* pl,node* pn,int index){
 }
 
 
-void iterateElements(const doublylinkedlist* pl,void (*pfunc)(void*,size_t)){
+void iterateElements(const doublylinkedlist* pl,void (*pfunc)(void*)){
     node* pNode = pl->head;
         while (pNode!=NULL){
-            (*pfunc)(pNode->value,pNode->size);
+            (*pfunc)(pNode->value);
             pNode = pNode->next;
         }
 }
@@ -151,13 +151,31 @@ node* getAt(doublylinkedlist* pl, int index){
     return pNode;
 }
 
-void setAt(doublylinkedlist* pl, void* inputValue, size_t inputSize, int index){
+void setAt(doublylinkedlist* pl, void* inputValue, int index){
     node* pNode = getAt(pl,index);
     pNode->value=inputValue;
-    pNode->size=inputSize;
 }
 
 
 int listEmpty(doublylinkedlist* pl){
     return !(pl->noElements);
+}
+
+
+void deleteNode(doublylinkedlist* pl,node* pNode){
+    if (pNode==pl->head)
+    {
+        deleteFirst(pl);
+    }
+    else if (pNode==pl->tail)
+    {
+        deleteLast(pl);
+    }
+    else{
+        node* somenode=pNode->next;
+        pNode->next->prev=pNode->prev;
+        pNode->prev->next=somenode;
+        freeNode(pNode);
+        pl->noElements--;
+    }
 }

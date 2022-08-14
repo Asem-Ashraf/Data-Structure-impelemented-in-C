@@ -4,7 +4,6 @@
 #include "datatypesSizes.h"
 typedef struct node{
     void* value;
-    size_t size;
     node* prev;
     node* next;
 }node;
@@ -108,6 +107,11 @@ node* deleteFirst(doublylinkedlist*);
 node* deleteLast(doublylinkedlist*);
 
 
+
+
+void deleteNode(doublylinkedlist*,node*);
+
+
 /* Precondition: The input index is less than the size of the list.
                  The list must not be empty.
  * Postcondition: The element is removed from the list and returned.
@@ -139,7 +143,7 @@ void  insertAt(doublylinkedlist*,node*,int);
                  head to tail in order.
  * Postcondition: 
  */
-void  iterateElements(const doublylinkedlist*,void (*pfunc)(void*,size_t));
+void  iterateElements(const doublylinkedlist*,void (*pfunc)(void*));
 
 
 /* Precondition: The input index is less than the size of the list.
@@ -151,7 +155,7 @@ node* getAt(doublylinkedlist*,int);
 /* Precondition: The input index is less than the size of the list.
  * Postcondition: The input replaces the value at the index.
  */
-void  setAt(doublylinkedlist*,void*,size_t,int);
+void  setAt(doublylinkedlist*,void*,int);
 
 /* Precondition: None
  * Postcondition: None
