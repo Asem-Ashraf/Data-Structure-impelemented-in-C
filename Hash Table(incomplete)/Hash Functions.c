@@ -27,7 +27,7 @@ UINT64 hash(void *type, size_t size)
 // This is a function that hashes integral types to unsigned long long
 
 UINT32 hashInts(UINT32 key,UINT32 m,UINT32 A, UINT32 B){
-    UINT64 p = 180811181061181081L;
+    //UINT64 p = 180811181061181081L;
     return  ((((UINT64)A)*((UINT64)key)+((UINT64)B))%m);
 
 }
