@@ -2,11 +2,12 @@
 #define THIS_FILE_DLL
 #include "stackentry datatype.h"
 
-typedef struct node{
+typedef struct node node;
+struct node{
     datatype value;
     node* prev;
     node* next;
-}node;
+};
 
 
 /* Precondition: None

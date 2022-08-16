@@ -2,11 +2,12 @@
 #define THIS_FILE_DLL
 
 #include "datatypesSizes.h"
-typedef struct node{
+typedef struct node node;
+struct node{
     void* value;
     node* prev;
     node* next;
-}node;
+};
 
 
 /* Precondition: None
