@@ -4,16 +4,17 @@
 #include <stdio.h>
 #include "datatypesSizes.h"
 #include "Doubly_Linked_List.h"
-#include "Hash Functions.c"
+
+typedef struct slot{
+    doublylinkedlist items;
+}slot;
 typedef struct HashTable{
     slot* slots;
     doublylinkedlist keys;
     UINT32 m;
+    UINT32 A,B;
     UINT32 size;
 }hashTable;
-typedef struct slot{
-    doublylinkedlist items;
-}slot;
 
 typedef struct item
 {
