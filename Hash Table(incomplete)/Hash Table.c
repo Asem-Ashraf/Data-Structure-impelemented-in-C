@@ -1,4 +1,8 @@
 #include "Hash Table.h"
+#include <string.h>
+#include <stdlib.h>
+#include <time.h>
+UINT8 findNodeByKey(hashTable*, void*, size_t,node*);
 
 
 void createHashTable(hashTable* pht, UINT32 m){
@@ -10,10 +14,17 @@ void createHashTable(hashTable* pht, UINT32 m){
     }
     pht->m=m;
     pht->size=0;
+    srand((unsigned int)time(NULL));
+    label:
+    pht->A=rand();
+    pht->B=rand();
+    if (pht->A%2==0||pht->A%5==0) goto label;
+    pht->A=1;
+    pht->B=0;
 }
 void insertKeyValuePair(hashTable* pht, void* pkey, size_t sizeKey, void* pvalue, size_t sizeValue, char* typeDes, size_t typeDesSize){
-    UINT32 index = hashInts(hash(pkey,sizeKey),pht->m);
-
+    UINT32 HASHERR = MurmurHash64A(pkey,sizeKey,5381);
+    UINT32 index = hashInts(HASHERR,pht->m,pht->A,pht->B);
     item* collisionListItem=(item*)malloc(sizeof(item));
     void* valuecopy=malloc(sizeValue);
     void* keycopy=malloc(sizeKey);
@@ -29,12 +40,16 @@ void insertKeyValuePair(hashTable* pht, void* pkey, size_t sizeKey, void* pvalue
     collisionListItem->typeDescriptionSize=typeDesSize;
     
     node* pCollisionListNode;
-    allocNode(pCollisionListNode);
+    pCollisionListNode = (node*)malloc(sizeof(node));
+    pCollisionListNode->next=pCollisionListNode->prev=pCollisionListNode->value=NULL;
+    //allocNode(pCollisionListNode);
     insertLast(&(pht->slots[index].items),pCollisionListNode);
 
     node* pKeyListNode;
-    allocNode(pKeyListNode);
-    insertLast(&pht->keys,pKeyListNode);
+    pKeyListNode = (node*)malloc(sizeof(node));
+    pKeyListNode->next=pKeyListNode->prev=pKeyListNode->value=NULL;
+    //allocNode(pKeyListNode);
+    insertLast(&(pht->keys),pKeyListNode);
 
     pCollisionListNode->value=collisionListItem;
     pKeyListNode->value=collisionListItem;
@@ -45,7 +60,7 @@ void insertKeyValuePair(hashTable* pht, void* pkey, size_t sizeKey, void* pvalue
     pht->size++;
 }
 void deleteKeyValuePair(hashTable* pht, void* pkey, size_t sizeKey){
-    UINT32 index = hashInts(hash(pkey,sizeKey),pht->m);
+    UINT32 index = hashInts(hash(pkey,sizeKey),pht->m,pht->A,pht->B);
     node* pCollisionListNode;
     if(findNodeByKey(pht,pkey,sizeKey,pCollisionListNode)){
         free( &((item*)pCollisionListNode->value)->key);
@@ -63,7 +78,7 @@ void getValueOfKey(hashTable* pht, void* pkey, size_t sizeKey, void* pvalue, siz
 
 }
 UINT8 findNodeByKey(hashTable* pht, void* pkey, size_t sizeKey,node* pNode){
-    UINT32 index = hashInts(hash(pkey,sizeKey),pht->m);
+    UINT32 index = hashInts(hash(pkey,sizeKey),pht->m,pht->A,pht->B);
     INT8* unit=(INT8*)pkey;
     node* nody=pht->slots[index].items.head;
     for (size_t i = 0; i < len(&pht->slots[index].items)-1 ; i++)
