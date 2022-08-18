@@ -5,11 +5,8 @@
 /* Given a NULL terminated string of characters.
    Returns unsigned long long that contains a hash of the string.
 */
-#ifndef THIS_HASH_FUNCTION_FILE
-#define THIS_HASH_FUNCTION_FILE
-#include "datatypesSizes.h"
 #include <math.h>
-
+#include "Hash Functions.h"
 UINT64 hash(void *type, size_t size)
 {
     UINT64 hash = 5381;
@@ -26,7 +23,7 @@ UINT64 hash(void *type, size_t size)
 
 // This is a function that hashes integral types to unsigned long long
 
-UINT32 hashInts(UINT32 key,UINT32 m,UINT32 A, UINT32 B){
+UINT32 hashInts(UINT64 key,UINT32 m,UINT32 A, UINT32 B){
     //UINT64 p = 180811181061181081L;
     return  ((((UINT64)A)*((UINT64)key)+((UINT64)B))%m);
 
@@ -84,5 +81,3 @@ UINT32 MurmurHash64A ( const void * key, int len, unsigned int seed )
 
     return h;
 }
-
-#endif
