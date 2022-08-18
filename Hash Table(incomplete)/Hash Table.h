@@ -4,7 +4,8 @@
 #include <stdio.h>
 #include "datatypesSizes.h"
 #include "Doubly_Linked_List.h"
-
+#include "Hash Functions.h"
+#pragma
 typedef struct slot{
     doublylinkedlist items;
 }slot;
@@ -16,23 +17,23 @@ typedef struct HashTable{
     UINT32 size;
 }hashTable;
 
-typedef struct item
-{
+typedef struct item{
     void* key;
     void* value;
-    size_t keySize;
-    size_t valueSize;
-    char* typeDescription;
-    size_t typeDescriptionSize;
+    void* typeDescription;
     node* pKeyListNode;
     node* pColisionListNode;
+    size_t keySize;
+    size_t valueSize;
+    size_t typeDescriptionSize;
 }item;
 
 
-void createHashTable(hashTable*, UINT32);
-void insertKeyValuePair(hashTable*,void*, size_t, void*, size_t,char*, size_t);
-void deleteKeyValuePair(hashTable*,void*, size_t);
-void getValueOfKey(hashTable*,void*, size_t, void*, size_t);
-void traverseKeys(hashTable*, void (*pfunc)(void*,size_t));
-
+UINT8  createHashTable     (hashTable*, UINT32);
+UINT8  insertKeyValuePair  (hashTable*,    void*, size_t,     void*, size_t,       char*, size_t);
+UINT8  removeKeyValuePair  (hashTable*,    void*, size_t);
+UINT8  getValueOfKey       (hashTable*,    void*, size_t,     void*, size_t,       char*, size_t);
+void   traverseKeys        (hashTable*, void (*pfunc)(void*,size_t));
+UINT8  destroyHashTable    (hashTable*);
+UINT32 sizeHashTable       (hashTable*);
 #endif
