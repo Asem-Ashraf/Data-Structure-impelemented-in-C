@@ -1,18 +1,20 @@
 #ifndef THIS_DATATYPE_FILE
 #define THIS_DATATYPE_FILE
 
-#include <stdio.h>
+#define false 0
+#define true  1
 
-#define INT8 char
-#define INT16 short int
-#define INT32 int
-#define INT64 long long
-#define FLOAT32 float
-#define FLOAT64 double
+typedef  char       INT8    ;
+typedef  short int  INT16   ;
+typedef  int        INT32   ;
+typedef  long long  INT64   ;
+typedef  float      FLOAT32 ;
+typedef  double     FLOAT64 ;
+typedef  char       BOOL    ;
 
-#define UINT8 unsigned INT8
-#define UINT16 unsigned INT16
-#define UINT32 unsigned INT32
-#define UINT64 unsigned INT64
+typedef unsigned char       UINT8  ;
+typedef unsigned short int  UINT16 ;
+typedef unsigned int        UINT32 ;
+typedef unsigned long long  UINT64 ;
 
-#endif
+#endif      
