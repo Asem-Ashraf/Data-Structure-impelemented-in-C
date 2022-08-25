@@ -97,7 +97,7 @@ UINT8 removeKey(hashTable* pht, void* pkey, size_t sizeKey){
     if(findCollisionNodeByKey(pht,pkey,sizeKey,&pCollisionListNode)){
         item* pCollisionListItem = pCollisionListNode->value;
 
-        free( pCollisionListItem->key));
+        free( pCollisionListItem->key);
         free( pCollisionListItem->value);
         free( pCollisionListItem->typeDescription);
 
@@ -113,7 +113,8 @@ UINT8 removeKey(hashTable* pht, void* pkey, size_t sizeKey){
 
 }
 void getValue(hashTable* pht, void* pkey, size_t sizeKey, void* pvalue, size_t *sizeValue,char* pTypeDes, size_t *typeDesSize){
-        node* pCollisionListNode = findCollisionNodeByKey(pht,pkey,sizeKey);
+        node* pCollisionListNode;
+        findCollisionNodeByKey(pht,pkey,sizeKey,&pCollisionListNode);
         item* pCollisionListItem = pCollisionListNode->value;
         pvalue=malloc(pCollisionListItem->valueSize);
         pTypeDes=malloc(pCollisionListItem->typeDescriptionSize);
