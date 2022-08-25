@@ -33,7 +33,7 @@ UINT8  createHashTable     (hashTable*, UINT32);
 UINT8  insertKeyValuePair  (hashTable*, void*, size_t,  void*, size_t,  char*, size_t);
 UINT8  removeKey           (hashTable*, void*, size_t);
 void   getValue            (hashTable*, void*, size_t,  void**, size_t*,  char**, size_t*);
-void   traverseKeys        (hashTable*, void (*pfunc)(void*,size_t));
+void   traverseKeys        (hashTable*, void (*pfunc)(void*,size_t,void*,size_t,void*,size_t));
 UINT8  destroyHashTable    (hashTable*);
 UINT32 sizeHashTable       (hashTable*);
 #endif
