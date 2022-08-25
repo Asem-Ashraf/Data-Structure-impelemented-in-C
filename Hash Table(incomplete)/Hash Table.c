@@ -55,43 +55,70 @@ UINT8 createHashTable(hashTable* pht, UINT32 m){
     return 1;
 }
 UINT8 insertKeyValuePair(hashTable* pht, void* pkey, size_t sizeKey, void* pvalue, size_t sizeValue, char* typeDes, size_t typeDesSize){
-    UINT32 index = indexer(pht,pkey,sizeKey);
-    item* pcollisionListItem=(item*)malloc(sizeof(item));
-    void* keycopy=malloc(sizeKey);
-    void* valuecopy=malloc(sizeValue);
-    void* typedescopy=malloc(typeDesSize);
+    node* tempnode;
+    BOOL keyExist = findCollisionNodeByKey(pht,pkey,sizeKey,&tempnode);
+    if ( keyExist)
+    {
+        item existingItem = *((item*)tempnode->value);
+        free(existingItem.key);
+        free(existingItem.value);
+        free(existingItem.typeDescription);
+        void* keycopy=malloc(sizeKey);
+        void* valuecopy=malloc(sizeValue);
+        void* typedescopy=malloc(typeDesSize);
 
-    memcpy(keycopy,pkey,sizeKey);
-    memcpy(valuecopy,pvalue,sizeValue);
-    memcpy(typedescopy,typeDes,typeDesSize);
+        memcpy(keycopy,pkey,sizeKey);
+        memcpy(valuecopy,pvalue,sizeValue);
+        memcpy(typedescopy,typeDes,typeDesSize);
 
-    pcollisionListItem->key=keycopy;
-    pcollisionListItem->value=valuecopy;
-    pcollisionListItem->keySize=sizeKey;
-    pcollisionListItem->valueSize=sizeValue;
-    pcollisionListItem->typeDescription=typedescopy;
-    pcollisionListItem->typeDescriptionSize=typeDesSize;
+        existingItem.key=keycopy;
+        existingItem.value=valuecopy;
+        existingItem.keySize=sizeKey;
+        existingItem.valueSize=sizeValue;
+        existingItem.typeDescription=typedescopy;
+        existingItem.typeDescriptionSize=typeDesSize;
+        return 1;
+    }
+    else if (!keyExist){
+         UINT32 index = indexer(pht,pkey,sizeKey);
+         item* pcollisionListItem=(item*)malloc(sizeof(item));
+         void* keycopy=malloc(sizeKey);
+         void* valuecopy=malloc(sizeValue);
+         void* typedescopy=malloc(typeDesSize);
 
-    node* pCollisionListNode;
-    //allocNode(pCollisionListNode);
-     pCollisionListNode = (node*)malloc(sizeof(node));
-     pCollisionListNode->next=pCollisionListNode->prev=pCollisionListNode->value=NULL;
-    insertLast(&(pht->slots[index].items),pCollisionListNode);
+         memcpy(keycopy,pkey,sizeKey);
+         memcpy(valuecopy,pvalue,sizeValue);
+         memcpy(typedescopy,typeDes,typeDesSize);
 
-    node* pKeyListNode;
-    //allocNode(pKeyListNode);
-     pKeyListNode = (node*)malloc(sizeof(node));
-     pKeyListNode->next=pKeyListNode->prev=pKeyListNode->value=NULL;
-    insertLast(&(pht->keys),pKeyListNode);
+         pcollisionListItem->key=keycopy;
+         pcollisionListItem->value=valuecopy;
+         pcollisionListItem->keySize=sizeKey;
+         pcollisionListItem->valueSize=sizeValue;
+         pcollisionListItem->typeDescription=typedescopy;
+         pcollisionListItem->typeDescriptionSize=typeDesSize;
 
-    pCollisionListNode->value=pcollisionListItem;
-    pKeyListNode->value=pcollisionListItem;
+         node* pCollisionListNode;
+         //allocNode(pCollisionListNode);
+          pCollisionListNode = (node*)malloc(sizeof(node));
+          pCollisionListNode->next=pCollisionListNode->prev=pCollisionListNode->value=NULL;
+         insertLast(&(pht->slots[index].items),pCollisionListNode);
 
-    pcollisionListItem->pColisionListNode=pCollisionListNode;
-    pcollisionListItem->pKeyListNode=pKeyListNode;
+         node* pKeyListNode;
+         //allocNode(pKeyListNode);
+          pKeyListNode = (node*)malloc(sizeof(node));
+          pKeyListNode->next=pKeyListNode->prev=pKeyListNode->value=NULL;
+         insertLast(&(pht->keys),pKeyListNode);
 
-    pht->size++;
-    return 1;
+         pCollisionListNode->value=pcollisionListItem;
+         pKeyListNode->value=pcollisionListItem;
+
+         pcollisionListItem->pColisionListNode=pCollisionListNode;
+         pcollisionListItem->pKeyListNode=pKeyListNode;
+
+         pht->size++;
+         return 1;
+    }
+    else return 0;
 }
 UINT8 removeKey(hashTable* pht, void* pkey, size_t sizeKey){
     UINT32 index = indexer(pht,pkey,sizeKey);
