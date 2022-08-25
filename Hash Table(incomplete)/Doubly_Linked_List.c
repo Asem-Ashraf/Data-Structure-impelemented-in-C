@@ -1,6 +1,9 @@
 #include "Doubly_Linked_List.h"
 #include <stdlib.h>
 
+#define len(pl) pl->noElements
+#define listEmpty(pl) !(pl->noElements)
+
 void allocNode(node* pn){
     pn = (node*)malloc(sizeof(node));
     pn->next=pn->prev=pn->value=NULL;
@@ -29,11 +32,6 @@ void intializeDoublyLinkedList(doublylinkedlist* pl){
     // }
     pl->head=pl->tail=NULL;
     pl->noElements=0;
-}
-
-
-int  len(const doublylinkedlist* pl){
-    return pl->noElements;
 }
 
 
@@ -156,10 +154,6 @@ void setAt(doublylinkedlist* pl, void* inputValue, int index){
     pNode->value=inputValue;
 }
 
-
-int listEmpty(doublylinkedlist* pl){
-    return !(pl->noElements);
-}
 
 
 void deleteNode(doublylinkedlist* pl,node* pNode){
