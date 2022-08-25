@@ -10,11 +10,11 @@ void freeNode(node* pn){
 }
 
 doublylinkedlist createDoublyLinkedList(){
-    doublylinkedlist dll;
-    dll.head = NULL;
-    dll.tail = NULL;
-    dll.noElements = 0;
-
+    doublylinkedlist* dll;
+    dll->head = NULL;
+    dll->tail = NULL;
+    dll->noElements = 0;
+    return *dll;
 }
 void intializeDoublyLinkedList(doublylinkedlist* pl){
     // if (!listEmpty(pl))
