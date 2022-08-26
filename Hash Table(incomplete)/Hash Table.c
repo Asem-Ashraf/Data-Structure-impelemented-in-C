@@ -4,10 +4,21 @@
 // #include <time.h>
 #include "Hash Table.h"
 
-#define indexer(pht,pkey,sizeKey) hashInts(MurmurHash64A(pkey,sizeKey,5),pht->m,pht->A,pht->B)
-#define getIndexByKey(pht,pkey,sizeKey) indexer(pht,pkey,sizeKey)
-#define sizeHashTable(pht) pht->size
+UINT8 deleteKeyByItem(hashTable* pht,node* pCollisionListNode, UINT32 index){
+        item* pCollisionListItem = pCollisionListNode->value;
 
+        free( pCollisionListItem->key);
+        free( pCollisionListItem->value);
+        free( pCollisionListItem->typeDescription);
+
+        node* pKeyListNode = pCollisionListItem->pKeyListNode;
+        free(pCollisionListNode->value);
+        deleteNode(&(pht->keys),pKeyListNode);
+        deleteNode(&(pht->slots[index].items),pCollisionListNode);
+
+        pht->size--;
+        return 1;
+}
 
 UINT8 findCollisionNodeByKey(hashTable* pht, void* pkey, size_t sizeKey,node** ppNode){
     UINT32 index = indexer(pht,pkey,sizeKey);
@@ -94,6 +105,7 @@ UINT8 insertKeyValuePair(hashTable* pht, void* pkey, size_t sizeKey, void* pvalu
         pcollisionListItem->valueSize=sizeValue;
         pcollisionListItem->typeDescription=typedescopy;
         pcollisionListItem->typeDescriptionSize=typeDesSize;
+        pcollisionListItem->index=index;
 
         node* pCollisionListNode;
         //allocNode(pCollisionListNode);
@@ -122,19 +134,7 @@ UINT8 removeKey(hashTable* pht, void* pkey, size_t sizeKey){
     UINT32 index = indexer(pht,pkey,sizeKey);
     node* pCollisionListNode;
     if(findCollisionNodeByKey(pht,pkey,sizeKey,&pCollisionListNode)){
-        item* pCollisionListItem = pCollisionListNode->value;
-
-        free( pCollisionListItem->key);
-        free( pCollisionListItem->value);
-        free( pCollisionListItem->typeDescription);
-
-        node* pKeyListNode = pCollisionListItem->pKeyListNode;
-        free(&pCollisionListNode->value);
-        deleteNode(&(pht->keys),pKeyListNode);
-        deleteNode(&(pht->slots[index].items),pCollisionListNode);
-
-        pht->size--;
-        return 1;
+        return deleteKeyByItem(pht,pCollisionListNode,index);
     }
     else return 0; 
 
@@ -158,7 +158,7 @@ void getValue(hashTable* pht, void* pkey, size_t sizeKey, void** pvalue, size_t 
 //         *sizeValue=pCollisionListItem->valueSize;
 //         *typeDesSize=pCollisionListItem->typeDescriptionSize;
  }
-void traverseKeys(hashTable* pht, void (*pfunc)(void*,size_t,void*,size_t,void*,size_t)){
+void traverseKeys(hashTable* pht, void (*pfunc)(const void*,size_t,void*,size_t,void*,size_t)){
     node* pNode = pht->keys.head;
     item key = *((item*)pNode->value);
     pfunc(key.key,key.keySize,key.value,key.valueSize,key.typeDescription,key.typeDescriptionSize);
@@ -167,4 +167,13 @@ void traverseKeys(hashTable* pht, void (*pfunc)(void*,size_t,void*,size_t,void*,
         pfunc(key.key,key.keySize,key.value,key.valueSize,key.typeDescription,key.typeDescriptionSize);
         key = *((item*)pNode->next->value);
     }
+}
+
+UINT8  destroyHashTable    (hashTable* pht){
+    for (size_t i = 0; i < pht->m; i++)
+    {
+        item* pCollisionListItem = (item*)(pht->keys.head->value);
+        deleteKeyByItem(pht,pCollisionListItem->pColisionListNode,pCollisionListItem->index);
+    }
+    free(pht->slots);
 }
