@@ -166,4 +166,6 @@ void  setAt(doublylinkedlist*,void*,int);
                         0 if the list is not empty.
 */
 int listEmpty(doublylinkedlist*);
+#define len(pl) (pl)->noElements
+#define listEmpty(pl) !((pl)->noElements)
 #endif

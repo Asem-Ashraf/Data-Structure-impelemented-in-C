@@ -1,8 +1,6 @@
 #include "Doubly_Linked_List.h"
 #include <stdlib.h>
 
-#define len(pl) pl->noElements
-#define listEmpty(pl) !(pl->noElements)
 
 void allocNode(node* pn){
     pn = (node*)malloc(sizeof(node));
