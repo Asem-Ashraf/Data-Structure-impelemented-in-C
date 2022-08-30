@@ -3,67 +3,63 @@
 #define THIS_FILE_ARRIMP
 #define StackEntry int /* PUT STACK DATA TYPE HERE */
 #define MAXSTACK 1000 /* PUT MAX STACK SIZE HERE*/
-
-typedef struct stack{
-    int top; // the index that an entry is going to be inserted at on pushing
-    StackEntry entry[MAXSTACK];
-}stack;
+typedef struct stack *Pstack;
 
 
 /* Precondition: The stack is intialized and not full
  * Postcondition: The element has been stored at the top of the stack;
                   and e does not change
  */
-void push(StackEntry,stack*);
+void push(StackEntry,Pstack);
 
 
 /* Precondition: The stack is intialized and not empty
  * Postcondition: The last element in the stack is returned.
  */
-void pop(StackEntry*,stack*);
+void pop(StackEntry*,Pstack);
 
 
 /* Precondition: The stack is intialized.
  * Postcondition: none
  */
-int  StackEmpty(stack*);
+int  StackEmpty(Pstack);
 
 
 /* Precondition: The stack is intialized.
  * Postcondition: none
  */
-int  StackFull(stack*);
+int  StackFull(Pstack);
 
 
 /* Precondition: none
  * Postcondition: The stack is empty
  */
-void ClearStack(stack*);
+void ClearStack(Pstack);
 
 
 /* Precondition: The stack is intialized and not empty
  * Postcondition: The element stored at the top of the stack is
                   returned without being removed.
  */
-void StackTop(StackEntry*,stack*);
+void StackTop(StackEntry*,Pstack);
 
 
 /* Precondition: The stack is intialized.
  * Postcondition: none
  */
-int  StackSize(stack*);
+int  StackSize(Pstack);
 
 
 /* Precondition: none
  * Postcondition: The stack is intialized.
  */
-void CreateStack(stack*);
+void CreateStack(Pstack);
 
 
 /* Precondition: The stack is intialized and not empty.
  * Postcondition: none
  */
-void TraverseStack(stack*,void (*pf)(StackEntry));
+void TraverseStack(Pstack,void (*pf)(StackEntry));
 
 
 #endif
