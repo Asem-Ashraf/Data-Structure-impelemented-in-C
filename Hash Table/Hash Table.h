@@ -10,16 +10,17 @@
  *  This is a general collision hash table that can map anything to anything given their sizes.
  *  The key is stored in the form of a pointer to a copy of the key given in the insert function.
  *  the value and type description are also stored the same way.
- *  These copies are accessed through the getValue() function.
+ *  These copies are accessed through thier pointer which is returned by reference by the getValue() function.
  *  Any manipulations in these copies will reflect in the actual data stored in the table.
- *  The insertKeyValuePair() function checks to see if the key exists first. If it does, then it 
+ *  The insertKeyValuePair() function checks to see if the key exists first before it inserts it as new. If it does, then it 
  *  overrides its value with the new one. This gives 2 ways to edit the value, type description and thier sizes.
+ *  Either by inserting on an already existing key or accessing the pointers of the copies though the getValue() function.
  *  The type description is an important attribute because it is the only way of knowing the type of the key and value.
  *  It is preferably a string in the format "{key type}:{value type}" but either of them could be omitted
- *  if the its type is the same for each element. Numbers could also be used to refer to the type. It is up to the programmer
- *  to decide what the format is and how to use it. This was impelemeted because there was no way of knowing
- *  the type of the variable that am getting from the getValue() function. Now, a switch case could be used 
- *  on all the type that the user could enter in the table to do the correct operations based on the type.
+ *  if the type is the same for each element though out the whole table. Numbers could also be used to refer to the type.
+ *  It is up to the programmer to decide what the format is and how to use it. This was impelemeted because there was no way of knowing
+ *  the type of the variable that returned by reference from the getValue() function. Now, a switch case could be used 
+ *  on all the type that the user could enter in the table to do the correct operations based on the information in the type description.
  *  The type description is not given as data to the hash function.
 */
 
